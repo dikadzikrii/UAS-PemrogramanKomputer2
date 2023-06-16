@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author nishom
+ * @author dikadzikrii
  */
 public class Koneksi {
 

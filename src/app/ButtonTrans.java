@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author isom
+ * @author dikadzikrii
  */
 public final class ButtonTrans extends JButton
         implements ActionListener {

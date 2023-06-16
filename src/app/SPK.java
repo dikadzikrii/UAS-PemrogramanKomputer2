@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author nishom
+ * @author dikadzikrii
  */
 public class SPK extends javax.swing.JFrame {
 
