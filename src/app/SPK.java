@@ -56,7 +56,6 @@ public class SPK extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         buttonTrans2 = new app.ButtonTrans();
-        buttonTrans3 = new app.ButtonTrans();
         jScrollPane3 = new javax.swing.JScrollPane();
         hasilPembobotan = new javax.swing.JTable();
 
@@ -175,13 +174,6 @@ public class SPK extends javax.swing.JFrame {
             }
         });
 
-        buttonTrans3.setText("Lakukan Pembobotan (WP)");
-        buttonTrans3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTrans3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -189,17 +181,13 @@ public class SPK extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonTrans2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonTrans3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(633, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonTrans2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(buttonTrans3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(buttonTrans2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -232,11 +220,6 @@ public class SPK extends javax.swing.JFrame {
         SPK_SAW();
         evt.getActionCommand();
     }//GEN-LAST:event_buttonTrans2ActionPerformed
-
-    private void buttonTrans3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrans3ActionPerformed
-        SPK_WP();
-        evt.getActionCommand();
-    }//GEN-LAST:event_buttonTrans3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,7 +254,6 @@ public class SPK extends javax.swing.JFrame {
     private javax.swing.JTable TBLaLTERNATIF;
     private app.ButtonTrans buttonTrans1;
     private app.ButtonTrans buttonTrans2;
-    private app.ButtonTrans buttonTrans3;
     private javax.swing.JTable hasilPembobotan;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -317,7 +299,7 @@ public class SPK extends javax.swing.JFrame {
     private void loadAlternatif() {
         try {
             Object[][] data = null;
-            Object[] header = {"ID", "NAMA OBAT", "HARGA", "MANFAAT", "ATURAN PAKAI", "DESKRIPSI"};
+            Object[] header = {"ID", "ALTERNATIF", "HARGA", "KADALUARSA", "PENGGUNAAN", "EFEK SAMPING", "BENTUK"};
             DefaultTableModel model = new DefaultTableModel(data, header);
             TBLaLTERNATIF.setModel(model);
 
@@ -328,13 +310,14 @@ public class SPK extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String namaObat = rs.getString("namaObat");
+                String namaObat = rs.getString("nama");
                 String harga = rs.getString("harga");
-                String manfaat = rs.getString("manfaat");
-                String aturanPakai = rs.getString("aturanPakai");
-                String deskripsi = rs.getString("deskripsi");
+                String kadaluarsa = rs.getString("kadaluarsa");
+                String penggunaan = rs.getString("penggunaan");
+                String efekSamping = rs.getString("efekSamping");
+                String bentuk = rs.getString("bentuk");
 
-                Object[] d = {id, namaObat, harga, manfaat, aturanPakai, deskripsi};
+                Object[] d = {id, namaObat, harga, kadaluarsa, penggunaan, efekSamping, bentuk};
                 model.addRow(d);
             }
         } catch (SQLException e) {
@@ -372,11 +355,12 @@ public class SPK extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 double id = rs.getDouble("id");
-                String nama = rs.getString("namaObat");
+                String nama = rs.getString("nama");
                 double harga = rs.getDouble("harga");
-                double manfaat = rs.getDouble("manfaat");
-                double aturanPakai = rs.getDouble("atutanPakai");
-                double deskripsi = rs.getDouble("deskripsi");
+                double kadaluarsa = rs.getDouble("kadaluarsa");
+                double penggunaan = rs.getDouble("penggunaan");
+                double efekSamping = rs.getDouble("efekSamping");
+                double bentuk = rs.getDouble("bentuk");
 
 //                double pembagi_harga = label("harga").equals("cost") ? min("harga") : max("harga");
 //                double pembagi_kualitas = label("kualitas").equals("cost") ? min("kualitas") : max("kualitas");
@@ -386,9 +370,10 @@ public class SPK extends javax.swing.JFrame {
 //                double pembagi_keawetan = label("keawetan").equals("cost") ? min("keawetan") : max("keawetan");
 
                 double norm_harga = label("harga").equals("cost") ? min("harga") / harga : harga / max("harga");
-                double norm_manfaat = label("manfaat").equals("cost") ? min("manfaat") / manfaat : manfaat / max("manfaat");
-                double norm_aturanPakai = label("aturanPakai").equals("cost") ? min("aturanPakai") / aturanPakai : aturanPakai / max("aturanPakai");
-                double norm_deskripsi = label("deskripsi").equals("cost") ? min("deskripsi") / deskripsi : deskripsi / max("deskripsi");
+                double norm_kadaluarsa = label("kadaluarsa").equals("cost") ? min("kadaluarsa") / kadaluarsa : kadaluarsa / max("kadaluarsa");
+                double norm_penggunaan = label("penggunaan").equals("cost") ? min("penggunaan") / penggunaan : penggunaan / max("penggunaan");
+                double norm_efekSamping = label("efekSamping").equals("cost") ? min("efekSamping") / efekSamping : efekSamping / max("efekSamping");
+                double norm_bentuk = label("bentuk").equals("cost") ? min("bentuk") / bentuk : bentuk / max("bentuk");
                
 
                
@@ -396,14 +381,15 @@ public class SPK extends javax.swing.JFrame {
                 Connection c2 = Koneksi.konekKeDB();
                 Statement st2 = c2.createStatement();
                 String query2 = "INSERT INTO normalisasi"
-                        + " (id_alternatif,harga,manfaat,aturanPakai,deskripsi) "
+                        + " (id,id_alternatif,harga,kadaluarsa,penggunaan,efekSamping,bentuk) "
                         + "VALUES "
                         + " ("
                         + "'"+id+"',"
                         + "'"+norm_harga+"',"
-                        + "'"+norm_manfaat+"',"
-                        + "'"+norm_aturanPakai+"',"
-                        + "'"+norm_deskripsi+"',"
+                        + "'"+norm_kadaluarsa+"',"
+                        + "'"+norm_penggunaan+"',"
+                        + "'"+norm_efekSamping+"',"
+                        + "'"+norm_bentuk+"',"
                         + ")";
                 st2.executeUpdate(query2);
 //                System.out.println(bobot("harga"));
@@ -412,7 +398,7 @@ public class SPK extends javax.swing.JFrame {
 //                System.out.println(bobot("populer"));
 //                System.out.println(bobot("purna_jual"));
 //                System.out.println(bobot("keawetan"));
-                double hasil = (bobot("harga") * norm_harga) + (bobot("manfaat") * norm_manfaat) + (bobot("aturanPakai") * norm_aturanPakai) + (bobot("deskripsi") * norm_deskripsi);
+                double hasil = (bobot("harga") * norm_harga) + (bobot("kadaluarsa") * norm_kadaluarsa) + (bobot("penggunaan") * norm_penggunaan + (bobot("efekSamping") * norm_efekSamping) + (bobot("bentuk") * norm_bentuk));
                 //hasil_saw.add(hasil);   
                 nomor++;
 
@@ -516,21 +502,24 @@ public class SPK extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
                     double harga = rs.getDouble("harga");
-                    double manfaat = rs.getDouble("manfaat");
-                    double aturanPakai = rs.getDouble("aturanPakai");
-                    double deskripsi = rs.getDouble("deskripsi");
+                    double kadaluarsa = rs.getDouble("kadaluarsa");
+                    double penggunaan = rs.getDouble("penggunaan");
+                    double efekSamping = rs.getDouble("efekSamping");
+                    double bentuk = rs.getDouble("bentuk");
                     
                     double pemangkat_harga = label2("harga").equals("benefit") ? bobot2("harga") : -1 * bobot2("harga");
-                    double pemangkat_manfaat = label2("manfaat").equals("benefit") ? bobot2("manfaat") : -1 * bobot2("manfaat");
-                    double pemangkat_aturanPakai = label2("aturanPakai").equals("benefit") ? bobot2("aturanPakai") : -1 * bobot2("aturanPakai");
-                    double pemangkat_deskripsi = label2("deskripsi").equals("benefit") ? bobot2("deskripsi") : -1 * bobot2("deskripsi");
+                    double pemangkat_kadaluarsa = label2("kadaluarsa").equals("benefit") ? bobot2("kadaluarsa") : -1 * bobot2("kadaluarsa");
+                    double pemangkat_penggunaan = label2("penggunaan").equals("benefit") ? bobot2("penggunaan") : -1 * bobot2("penggunaan");
+                    double pemangkat_efekSamping = label2("efekSamping").equals("benefit") ? bobot2("efekSamping") : -1 * bobot2("efekSamping");
+                    double pemangkat_bentuk = label2("bentuk").equals("benefit") ? bobot2("bentuk") : -1 * bobot2("bentuk");
                     
                     
                     double vector_S =
                             Math.pow(harga, pemangkat_harga)*
-                            Math.pow(manfaat, pemangkat_manfaat) *
-                            Math.pow(aturanPakai, pemangkat_aturanPakai) *
-                            Math.pow(deskripsi, pemangkat_deskripsi);
+                            Math.pow(kadaluarsa, pemangkat_kadaluarsa) *
+                            Math.pow(penggunaan, pemangkat_penggunaan) *
+                            Math.pow(efekSamping, pemangkat_efekSamping) *
+                            Math.pow(bentuk, pemangkat_bentuk);
                     vectorS.add(vector_S);
                 }
             }
