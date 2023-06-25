@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author arss
+ * @author dikadzikrii
  */
 public class TambahAlternatif extends javax.swing.JDialog {
 
@@ -47,8 +47,8 @@ public class TambahAlternatif extends javax.swing.JDialog {
         txtKadaluarsa = new javax.swing.JTextField();
         txtHarga = new javax.swing.JTextField();
         txtPenggunaan = new javax.swing.JTextField();
-        txtEfekSamping = new javax.swing.JTextField();
-        txtBentuk = new javax.swing.JTextField();
+        cmbBentuk = new javax.swing.JComboBox<>();
+        cmbEfekSamping = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Tambah Konsumen");
@@ -76,17 +76,21 @@ public class TambahAlternatif extends javax.swing.JDialog {
 
         jLabel7.setText("Kadaluarsa");
 
-        jLabel8.setText("Penggunaan");
+        jLabel8.setText("Jangka Penggunaan");
 
         jLabel9.setText("Efek Samping");
 
         jLabel10.setText("Bentuk");
 
-        txtEfekSamping.addActionListener(new java.awt.event.ActionListener() {
+        txtHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEfekSampingActionPerformed(evt);
+                txtHargaActionPerformed(evt);
             }
         });
+
+        cmbBentuk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+
+        cmbEfekSamping.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,10 +106,6 @@ public class TambahAlternatif extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(110, 110, 110)
-                                .addComponent(txtBentuk, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -120,12 +120,16 @@ public class TambahAlternatif extends javax.swing.JDialog {
                                 .addComponent(txtKadaluarsa, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addComponent(txtPenggunaan, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEfekSamping, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbEfekSamping, 0, 231, Short.MAX_VALUE)
+                                    .addComponent(cmbBentuk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel6)))
@@ -134,7 +138,7 @@ public class TambahAlternatif extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,13 +158,16 @@ public class TambahAlternatif extends javax.swing.JDialog {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEfekSamping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEfekSamping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBentuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                        .addGap(91, 91, 91))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbBentuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
                     .addComponent(btnBatal))
@@ -180,9 +187,9 @@ public class TambahAlternatif extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
-    private void txtEfekSampingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfekSampingActionPerformed
+    private void txtHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHargaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEfekSampingActionPerformed
+    }//GEN-LAST:event_txtHargaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,6 +239,8 @@ public class TambahAlternatif extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private static javax.swing.JButton btnSimpan;
+    private javax.swing.JComboBox<String> cmbBentuk;
+    private javax.swing.JComboBox<String> cmbEfekSamping;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -240,8 +249,6 @@ public class TambahAlternatif extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtAlternatif;
-    private javax.swing.JTextField txtBentuk;
-    private javax.swing.JTextField txtEfekSamping;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtKadaluarsa;
     private javax.swing.JTextField txtPenggunaan;
@@ -253,8 +260,8 @@ public class TambahAlternatif extends javax.swing.JDialog {
             String harga = txtHarga.getText();
             String kadaluarsa = txtKadaluarsa.getText();
             String penggunaan = txtPenggunaan.getText();
-            String efekSamping = txtEfekSamping.getText();
-            String bentuk = txtBentuk.getText();
+            String efekSamping = (String) cmbEfekSamping.getSelectedItem();
+            String bentuk = (String) cmbBentuk.getSelectedItem();
           
             if(alternatif.isEmpty() || harga.isEmpty() || kadaluarsa.isEmpty() || penggunaan.isEmpty() || efekSamping.isEmpty() || bentuk.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Lengkapi Data Terlebih Dahulu!"); 

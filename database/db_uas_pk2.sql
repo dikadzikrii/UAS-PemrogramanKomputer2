@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2023 at 10:18 AM
+-- Generation Time: Jun 25, 2023 at 12:24 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -33,8 +33,8 @@ CREATE TABLE `alternatif` (
   `harga` double NOT NULL,
   `kadaluarsa` double NOT NULL,
   `penggunaan` double NOT NULL,
-  `efekSamping` double NOT NULL,
-  `bentuk` double NOT NULL
+  `efekSamping` enum('1','2','3','4','5') NOT NULL,
+  `bentuk` enum('1','2','3','4','5') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -42,11 +42,12 @@ CREATE TABLE `alternatif` (
 --
 
 INSERT INTO `alternatif` (`id`, `alternatif`, `harga`, `kadaluarsa`, `penggunaan`, `efekSamping`, `bentuk`) VALUES
-(1, 'Obat 1', 8500, 90, 14, 4, 3),
-(2, 'Obat 2', 4500, 90, 32, 3, 2),
-(3, 'Obat 3', 4000, 120, 7, 3, 2),
-(4, 'Obat 4', 4000, 120, 32, 3, 3),
-(5, 'Obat 5', 10000, 90, 30, 3, 5);
+(1, 'Obat 1', 8500, 90, 14, '4', '3'),
+(2, 'Obat 2', 4500, 90, 32, '3', '2'),
+(3, 'Obat 3', 4000, 120, 7, '3', '2'),
+(4, 'Obat 4', 4000, 120, 32, '3', '3'),
+(5, 'Obat 5', 10000, 90, 30, '3', '5'),
+(6, 'Obat 6', 15000, 300, 30, '3', '3');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,7 @@ CREATE TABLE `hasil_saw` (
 
 CREATE TABLE `kriteria` (
   `id_kriteria` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
+  `kriteria` varchar(50) NOT NULL,
   `bobot` double NOT NULL,
   `label` enum('cost','benefit') NOT NULL DEFAULT 'benefit'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -77,7 +78,7 @@ CREATE TABLE `kriteria` (
 -- Dumping data for table `kriteria`
 --
 
-INSERT INTO `kriteria` (`id_kriteria`, `nama`, `bobot`, `label`) VALUES
+INSERT INTO `kriteria` (`id_kriteria`, `kriteria`, `bobot`, `label`) VALUES
 (1, 'namaObat', 0.2, 'cost'),
 (2, 'harga', 0.25, 'benefit'),
 (3, 'kadaluarsa', 0.2, 'benefit'),
@@ -169,7 +170,7 @@ ALTER TABLE `normalisasi`
 -- AUTO_INCREMENT for table `alternatif`
 --
 ALTER TABLE `alternatif`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `hasil_saw`

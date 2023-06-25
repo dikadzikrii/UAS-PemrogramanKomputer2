@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class UpdateKriteria extends javax.swing.JDialog {
 
-    namaObat obat;
+    obats obat;
     /**
      * Creates new form TambahKonsumen
      */

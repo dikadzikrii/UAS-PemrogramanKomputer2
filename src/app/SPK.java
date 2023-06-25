@@ -5,31 +5,37 @@
 package app;
 
 import java.awt.Frame;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dikadzikrii
  */
 public class SPK extends javax.swing.JFrame {
-
+    long IDAlternatif;
+    Alternatif alternatif;
+    
     /**
      * Creates new form SPK
      */
     public SPK() {
+
         initComponents();
 
         setLocationRelativeTo(null);
         setExtendedState(Frame.MAXIMIZED_BOTH);
-        loadKriteria();
-        loadAlternatif();
+
+        loadAlternatif("");
+        loadKriteria("");
     }
 
     /**
@@ -43,21 +49,31 @@ public class SPK extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        buttonTrans1 = new app.ButtonTrans();
+        btnTambahAlternatif = new app.ButtonTrans();
+        btnHapusAlternatif = new app.ButtonTrans();
+        btnEditAlternatif = new app.ButtonTrans();
+        txtCariAlternatif = new javax.swing.JTextField();
+        btnCariAlternatif = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblKriteria = new javax.swing.JTable();
+        tabelAlternatif = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        btnTambahKriteria = new app.ButtonTrans();
+        btnEditKriteria = new app.ButtonTrans();
+        btnHapusKriteria = new app.ButtonTrans();
+        txtCariKriteria = new javax.swing.JTextField();
+        btnCariKriteria = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TBLaLTERNATIF = new javax.swing.JTable();
+        tabelKriteria = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        buttonTrans2 = new app.ButtonTrans();
+        buttonTrans3 = new app.ButtonTrans();
         jScrollPane3 = new javax.swing.JScrollPane();
-        hasilPembobotan = new javax.swing.JTable();
+        tabelSPK = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,7 +81,7 @@ public class SPK extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
+            .addGap(0, 748, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,45 +90,104 @@ public class SPK extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(748, 50));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setPreferredSize(new java.awt.Dimension(873, 50));
+        jPanel6.setPreferredSize(new java.awt.Dimension(748, 50));
 
-        buttonTrans1.setText("Tambah Kriteria");
+        btnTambahAlternatif.setText("+ Alternatif");
+        btnTambahAlternatif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahAlternatifActionPerformed(evt);
+            }
+        });
+
+        btnHapusAlternatif.setText("Hapus");
+        btnHapusAlternatif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusAlternatifActionPerformed(evt);
+            }
+        });
+
+        btnEditAlternatif.setText("Edit");
+        btnEditAlternatif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditAlternatifActionPerformed(evt);
+            }
+        });
+
+        txtCariAlternatif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariAlternatifActionPerformed(evt);
+            }
+        });
+
+        btnCariAlternatif.setText("Cari");
+        btnCariAlternatif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariAlternatifActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(buttonTrans1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(735, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnTambahAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHapusAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(txtCariAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCariAlternatif)
+                .addGap(96, 96, 96))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonTrans1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCariAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCariAlternatif))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTambahAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addComponent(btnHapusAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addComponent(btnEditAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.PAGE_START);
 
-        tblKriteria.setModel(new javax.swing.table.DefaultTableModel(
+        tabelAlternatif.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -123,30 +198,73 @@ public class SPK extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblKriteria);
+        tabelAlternatif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelAlternatifMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelAlternatif);
 
         jPanel3.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Kriteria", jPanel3);
+        jTabbedPane1.addTab("Alternatif", jPanel3);
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(873, 50));
+        jPanel7.setPreferredSize(new java.awt.Dimension(748, 50));
+
+        btnTambahKriteria.setText("+ Kriteria");
+        btnTambahKriteria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahKriteriaActionPerformed(evt);
+            }
+        });
+
+        btnEditKriteria.setText("Edit");
+
+        btnHapusKriteria.setText("Hapus");
+
+        txtCariKriteria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariKriteriaActionPerformed(evt);
+            }
+        });
+
+        btnCariKriteria.setText("Cari");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnTambahKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnHapusKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(txtCariKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCariKriteria)
+                .addGap(97, 97, 97))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTambahKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnEditKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(btnHapusKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(txtCariKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCariKriteria))
+                .addContainerGap())
         );
 
         jPanel4.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
-        TBLaLTERNATIF.setModel(new javax.swing.table.DefaultTableModel(
+        tabelKriteria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -157,20 +275,20 @@ public class SPK extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(TBLaLTERNATIF);
+        jScrollPane2.setViewportView(tabelKriteria);
 
         jPanel4.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Alternatif", jPanel4);
+        jTabbedPane1.addTab("Kriteria", jPanel4);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(873, 50));
+        jPanel8.setPreferredSize(new java.awt.Dimension(748, 50));
 
-        buttonTrans2.setText("Lakukan Pembobotan (saw)");
-        buttonTrans2.addActionListener(new java.awt.event.ActionListener() {
+        buttonTrans3.setText("Lakukan Proses SAW");
+        buttonTrans3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTrans2ActionPerformed(evt);
+                buttonTrans3ActionPerformed(evt);
             }
         });
 
@@ -180,20 +298,20 @@ public class SPK extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonTrans2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(633, Short.MAX_VALUE))
+                .addComponent(buttonTrans3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(524, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonTrans2, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(buttonTrans3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jPanel5.add(jPanel8, java.awt.BorderLayout.PAGE_START);
 
-        hasilPembobotan.setModel(new javax.swing.table.DefaultTableModel(
+        tabelSPK.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -204,22 +322,94 @@ public class SPK extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(hasilPembobotan);
+        jScrollPane3.setViewportView(tabelSPK);
 
         jPanel5.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        jTabbedPane1.addTab("Pembobotan", jPanel5);
+        jTabbedPane1.addTab("SPK (SAW)", jPanel5);
 
         getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonTrans2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrans2ActionPerformed
+    private void buttonTrans3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrans3ActionPerformed
         // TODO add your handling code here:
-        SPK_SAW();
-        evt.getActionCommand();
-    }//GEN-LAST:event_buttonTrans2ActionPerformed
+        SPK();
+    }//GEN-LAST:event_buttonTrans3ActionPerformed
+
+    private void btnEditAlternatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAlternatifActionPerformed
+        // TODO add your handling code here:
+        UpdateData();
+
+    }//GEN-LAST:event_btnEditAlternatifActionPerformed
+
+    private void btnTambahKriteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahKriteriaActionPerformed
+        // TODO add your handling code here:
+        TambahKriteria TK = new TambahKriteria(this, true);
+        TK.setVisible(true); 
+    }//GEN-LAST:event_btnTambahKriteriaActionPerformed
+
+    private void btnTambahAlternatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahAlternatifActionPerformed
+        // TODO add your handling code here:
+        TambahAlternatif TA = new TambahAlternatif(this, true);
+        TA.setVisible(true); 
+    }//GEN-LAST:event_btnTambahAlternatifActionPerformed
+
+    private void tabelAlternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelAlternatifMouseClicked
+        // TODO add your handling code here:
+        int index = tabelAlternatif.getSelectedRow();
+        if(index != -1){
+            String id = tabelAlternatif.getValueAt(index, 0).toString();
+            long TheID = Long.parseLong(id);
+            IDAlternatif = TheID;
+            
+            String alternatif = tabelAlternatif.getValueAt(index, 1).toString();
+            String harga = tabelAlternatif.getValueAt(index, 2).toString();
+            String kadaluarsa = tabelAlternatif.getValueAt(index, 3).toString();
+            String penggunaan = tabelAlternatif.getValueAt(index, 4).toString();
+            String efekSamping = tabelAlternatif.getValueAt(index, 5).toString();
+            String bentuk = tabelAlternatif.getValueAt(index, 4).toString();
+            
+            
+//            alternatif = new Alternatif();
+//            alternatif.setId(id);
+//            alternatif.setAlternatif(alternatifes);
+//            alternatif.setAlternatifs(Alternatif);
+//            alternatif.setHarga(harga); 
+//            alternatif.setKadaluarsa(kadaluarsa); 
+//            alternatif.setPenggunaan(penggunaan); 
+//            alternatif.setEfekSamping(efekSamping); 
+//            alternatif.setBentuk(bentuk);
+        } 
+    }//GEN-LAST:event_tabelAlternatifMouseClicked
+
+    private void btnHapusAlternatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusAlternatifActionPerformed
+        // TODO add your handling code here:
+        HapusDataAlternatif();
+    }//GEN-LAST:event_btnHapusAlternatifActionPerformed
+
+    private void txtCariKriteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariKriteriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariKriteriaActionPerformed
+
+    private void txtCariAlternatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariAlternatifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariAlternatifActionPerformed
+
+    private void btnCariAlternatifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariAlternatifActionPerformed
+        // TODO add your handling code here:
+        String key = txtCariAlternatif.getText();
+        String where = "select * from alternatif WHERE"
+                + " id LIKE '%"+key+"%' OR "
+                + "alternatif '%"+key+"%' OR "
+                + "harga LIKE '%"+key+"%' OR "
+                + "kadaluarsa LIKE '%"+key+"%' OR "
+                + "penggunnaan LIKE '%"+key+"%' OR "
+                + "efekSamping LIKE '%"+key+"%' OR "
+                + "bentuk LIKE '%"+key+"%'";
+        loadAlternatif("SELECT "+where);
+    }//GEN-LAST:event_btnCariAlternatifActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,24 +427,37 @@ public class SPK extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SPK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SPK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SPK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SPK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new SPK().setVisible(true);
         });
+        
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TBLaLTERNATIF;
-    private app.ButtonTrans buttonTrans1;
-    private app.ButtonTrans buttonTrans2;
-    private javax.swing.JTable hasilPembobotan;
+    private javax.swing.JButton btnCariAlternatif;
+    private javax.swing.JButton btnCariKriteria;
+    private app.ButtonTrans btnEditAlternatif;
+    private app.ButtonTrans btnEditKriteria;
+    private app.ButtonTrans btnHapusAlternatif;
+    private app.ButtonTrans btnHapusKriteria;
+    private app.ButtonTrans btnTambahAlternatif;
+    private app.ButtonTrans btnTambahKriteria;
+    private app.ButtonTrans buttonTrans3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -267,342 +470,229 @@ public class SPK extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable tblKriteria;
+    public static javax.swing.JTable tabelAlternatif;
+    public static javax.swing.JTable tabelKriteria;
+    private javax.swing.JTable tabelSPK;
+    private javax.swing.JTextField txtCariAlternatif;
+    private javax.swing.JTextField txtCariKriteria;
     // End of variables declaration//GEN-END:variables
 
-    //Methods for SAW    
-    private void loadKriteria() {
+    public static void loadAlternatif(String where) {
         try {
-            Object[][] data = null;
-            Object[] header = {"ID", "KRITERIA", "BOBOT", "LABEL"};
-            DefaultTableModel model = new DefaultTableModel(data, header);
-            tblKriteria.setModel(model);
-
-            //load data from DB
-            Connection koneksi = Koneksi.konekKeDB();
-            Statement st = koneksi.createStatement();
-            String query = "SELECT * FROM kriteria";
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                int id = rs.getInt("id_kriteria");
-                String nama = rs.getString("nama");
-                String bobot = rs.getString("bobot");
-                String label = rs.getString("label");
-                Object[] d = {id, nama, bobot, label};
-                model.addRow(d);
-            }
-        } catch (SQLException e) {
-
-        }
-    }
-
-    private void loadAlternatif() {
-        try {
-            Object[][] data = null;
+            //design tabel
+            Object[][] baris = null;
             Object[] header = {"ID", "ALTERNATIF", "HARGA", "KADALUARSA", "PENGGUNAAN", "EFEK SAMPING", "BENTUK"};
-            DefaultTableModel model = new DefaultTableModel(data, header);
-            TBLaLTERNATIF.setModel(model);
+            DefaultTableModel model = new DefaultTableModel(baris, header);
+            tabelAlternatif.setModel(model);
 
-            //load data from DB
-            Connection koneksi = Koneksi.konekKeDB();
-            Statement st = koneksi.createStatement();
-            String query = "SELECT * FROM alternatif";
+//              Object[] header = {"ID", "ALTERNATIF", "HARGA", "JUMLAH ULASAN POSITIF", "PRESTASI MENTOR", "KECEPATAN SERVER", "TK PEMAKAIAN"};
+//              DefaultTableModel model = new DefaultTableModel(null, header);
+//              tabelAlternatif.setModel(model); 
+            //read data from db
+            Connection c = Koneksi.konekKeDB();
+            Statement st = c.createStatement();
+            String query = "SELECT * FROM alternatif"+where;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String namaObat = rs.getString("nama");
+                String alternatif = rs.getString("alternatif");
                 String harga = rs.getString("harga");
                 String kadaluarsa = rs.getString("kadaluarsa");
                 String penggunaan = rs.getString("penggunaan");
                 String efekSamping = rs.getString("efekSamping");
                 String bentuk = rs.getString("bentuk");
-
-                Object[] d = {id, namaObat, harga, kadaluarsa, penggunaan, efekSamping, bentuk};
-                model.addRow(d);
+//                String keawetan = rs.getString("keawetan");
+                Object[] data = {id, alternatif, harga, kadaluarsa, penggunaan, efekSamping, bentuk};
+                model.addRow(data);
             }
         } catch (SQLException e) {
-
-        }
-    }
-
-    private void truncate_table(String tableName){
-        try {
-            Connection c4 = Koneksi.konekKeDB();
-            Statement st4 = c4.createStatement();
-            String query4 = "TRUNCATE TABLE "+tableName+"";
-            st4.executeUpdate(query4);
-            st4.close();
-        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
     
-    
-    private void SPK_SAW() {
+     private void HapusDataAlternatif() {
+        if(IDAlternatif > 0){
+            try {
+                Object[] tombol = {"YA", "Tidak"};
+                int option = JOptionPane.showOptionDialog(this, 
+                        "Apakah anda ingin menghapus data?", 
+                        "Konfirmasi", 
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.INFORMATION_MESSAGE, null, tombol, 0);
+                if(option == 0){
+                    //YA
+                    //YES
+                    Connection c = Koneksi.konekKeDB();
+                    Statement st = c.createStatement();
+                    String sql = "DELETE FROM alternatif WHERE id='"+IDAlternatif+"'";
+                    //eksekusi query
+                    st.executeUpdate(sql);
+                    //refresh view table
+                    loadAlternatif(""); 
+                    JOptionPane.showMessageDialog(this, "Data telah dihapus");
+                }                
+            } catch (HeadlessException | SQLException e) {
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Anda belum memilih Data"); 
+        }
+    }
+
+    public static void loadKriteria(String where) {
         try {
-            //List<Double> hasil_saw = new ArrayList<>();
-            Object[] header = {"NO", "ALTERNATIF", "BOBOT"};
-            Object[][] data = null;
-            DefaultTableModel model = new DefaultTableModel(data, header);
-            hasilPembobotan.setModel(model);
-            int nomor = 0;
+            //design tabel
+            Object[][] baris = null;
+            Object[] header = {"ID", "KRITERIA", "BOBOT", "LABEL"};
+            DefaultTableModel model = new DefaultTableModel(baris, header);
+            tabelKriteria.setModel(model);
 
-            truncate_table("hasil_saw");
-            truncate_table("normalisasi");         
-
+            //read data from db
             Connection c = Koneksi.konekKeDB();
             Statement st = c.createStatement();
-            String query = "SELECT * FROM alternatif";
+            String query = "SELECT * FROM kriteria"+where;
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                double id = rs.getDouble("id");
-                String nama = rs.getString("nama");
+                int id = rs.getInt("id_kriteria");
+                String kriteria = rs.getString("kriteria");
+                String bobot = rs.getString("bobot");
+                String label = rs.getString("label");
+
+                Object[] data = {id, kriteria, bobot, label};
+                model.addRow(data);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void SPK() {
+        try {
+            Object[] header = {"NO","ALTERNATIF","BOBOT"};
+            Object[][] data = null;
+            DefaultTableModel model = new DefaultTableModel(data, header);
+            tabelSPK.setModel(model); 
+            int nomor = 0;
+            
+            //
+            List<Double> L_hasil = new ArrayList();
+            
+            Connection c = Koneksi.konekKeDB();
+            Statement st = c.createStatement();
+            String q = "SELECT * FROM alternatif";
+            ResultSet rs = st.executeQuery(q);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String alternatif = rs.getString("alternatif");
+                
                 double harga = rs.getDouble("harga");
                 double kadaluarsa = rs.getDouble("kadaluarsa");
                 double penggunaan = rs.getDouble("penggunaan");
                 double efekSamping = rs.getDouble("efekSamping");
                 double bentuk = rs.getDouble("bentuk");
+//                double keawetan = rs.getDouble("keawetan");
 
-//                double pembagi_harga = label("harga").equals("cost") ? min("harga") : max("harga");
-//                double pembagi_kualitas = label("kualitas").equals("cost") ? min("kualitas") : max("kualitas");
-//                double pembagi_fitur = label("fitur").equals("cost") ? min("fitur") : max("fitur");
-//                double pembagi_populer = label("populer").equals("cost") ? min("populer") : max("populer");
-//                double pembagi_pjual = label("purna_jual").equals("cost") ? min("purna_jual") : max("purna_jual");
-//                double pembagi_keawetan = label("keawetan").equals("cost") ? min("keawetan") : max("keawetan");
-
-                double norm_harga = label("harga").equals("cost") ? min("harga") / harga : harga / max("harga");
-                double norm_kadaluarsa = label("kadaluarsa").equals("cost") ? min("kadaluarsa") / kadaluarsa : kadaluarsa / max("kadaluarsa");
-                double norm_penggunaan = label("penggunaan").equals("cost") ? min("penggunaan") / penggunaan : penggunaan / max("penggunaan");
-                double norm_efekSamping = label("efekSamping").equals("cost") ? min("efekSamping") / efekSamping : efekSamping / max("efekSamping");
-                double norm_bentuk = label("bentuk").equals("cost") ? min("bentuk") / bentuk : bentuk / max("bentuk");
-               
-
-               
+                double pem_harga = label("harga").equals("cost") ? MIN("harga") : MAX("harga");
+                double pem_kadaluarsa = label("kadaluarsa").equals("cost") ? MIN("kadaluarsa") : MAX("kadaluarsa");
+                double pem_penggunaan = label("penggunaan").equals("cost") ? MIN("penggunaan") : MAX("penggunaan");
+                double pem_efekSamping = label("efekSamping").equals("cost") ? MIN("efekSamping") : MAX("efekSamping");
+                double pem_bentuk = label("bentuk").equals("cost") ? MIN("bentuk") : MAX("bentuk");
+//                double pem_keawetan = label("keawetan").equals("cost") ? MIN("keawetan") : MAX("keawetan");
                 
-                Connection c2 = Koneksi.konekKeDB();
-                Statement st2 = c2.createStatement();
-                String query2 = "INSERT INTO normalisasi"
-                        + " (id,id_alternatif,harga,kadaluarsa,penggunaan,efekSamping,bentuk) "
-                        + "VALUES "
-                        + " ("
-                        + "'"+id+"',"
-                        + "'"+norm_harga+"',"
-                        + "'"+norm_kadaluarsa+"',"
-                        + "'"+norm_penggunaan+"',"
-                        + "'"+norm_efekSamping+"',"
-                        + "'"+norm_bentuk+"',"
-                        + ")";
-                st2.executeUpdate(query2);
-//                System.out.println(bobot("harga"));
-//                System.out.println(bobot("kualitas"));
-//                System.out.println(bobot("fitur"));
-//                System.out.println(bobot("populer"));
-//                System.out.println(bobot("purna_jual"));
-//                System.out.println(bobot("keawetan"));
-                double hasil = (bobot("harga") * norm_harga) + (bobot("kadaluarsa") * norm_kadaluarsa) + (bobot("penggunaan") * norm_penggunaan + (bobot("efekSamping") * norm_efekSamping) + (bobot("bentuk") * norm_bentuk));
-                //hasil_saw.add(hasil);   
+                double norm_harga = label("harga").equals("cost") ? MIN("harga")/harga : harga/MAX("harga");
+                double norm_kadaluarsa = label("kadaluarsa").equals("cost") ? MIN("kadaluarsa")/kadaluarsa : kadaluarsa/MAX("kadaluarsa");
+                double norm_penggunaan = label("penggunaan").equals("cost") ? MIN("penggunaan")/penggunaan : penggunaan/MAX("penggunaan");
+                double norm_efekSamping = label("efekSamping").equals("cost") ? MIN("efekSamping")/efekSamping : efekSamping/MAX("efekSamping");
+                double norm_bentuk = label("bentuk").equals("cost") ? MIN("bentuk")/bentuk : bentuk/MAX("bentuk");
+//                double norm_keawetan = label("keawetan").equals("cost") ? MIN("keawetan")/keawetan : keawetan/MAX("keawetan");
+                
+                double hasil = (bobot("harga")*norm_harga)+(bobot("kadaluarsa")*norm_kadaluarsa)+(bobot("penggunaan")*norm_penggunaan)+(bobot("efekSamping")*norm_efekSamping)+(bobot("bentuk")*norm_bentuk);
+                L_hasil.add(hasil);
                 nomor++;
-
-                //String nama_alt = rs.getString("nama");
-                Object[] rowData = {nomor, nama, hasil};
-                model.addRow(rowData);
-                
-                
-                
-                
-                Connection c3 = Koneksi.konekKeDB();
-                Statement st3 = c3.createStatement();
-                String query3 = "INSERT INTO hasil_saw (alternatif,bobot) "
-                        + "VALUES "
-                        + "('"+nama+"','"+hasil+"')";
-                st3.executeUpdate(query3);
+                Object[] rowData = {nomor,alternatif,hasil};
+                model.addRow(rowData);                 
             }
-            //double max = Collections.max(hasil_saw);
-            //System.out.println(max);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+//            String hasil_alternatif = rs.getString("alternatif",[]);
+            double bobotTerbaik = Collections.max(L_hasil); 
+            jLabel1.setText("Bobot terbaik: "+bobotTerbaik); 
+            
+        } catch (Exception e) {
         }
     }
 
-    private double min(String kolom) {
+    private double MIN(String kriteria) {
         double min = 0;
         try {
             Connection c = Koneksi.konekKeDB();
             Statement st = c.createStatement();
-            String query = "SELECT MIN(" + kolom + ") AS min_kolom FROM alternatif";
-            ResultSet rs = st.executeQuery(query);
+            String q = "SELECT MIN(" + kriteria + ") AS min_kriteria FROM alternatif";
+            ResultSet rs = st.executeQuery(q);
             while (rs.next()) {
-                min = rs.getDouble("min_kolom");
+                min = rs.getDouble("min_kriteria");
             }
             return min;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
+                 System.err.println("ini error spk: "+e.getMessage());
         }
         return min;
     }
 
-    private double max(String kolom) {
+    private double MAX(String kriteria) {
         double max = 0;
         try {
             Connection c = Koneksi.konekKeDB();
             Statement st = c.createStatement();
-            String query = "SELECT MAX(" + kolom + ") AS max_kolom FROM alternatif";
-            ResultSet rs = st.executeQuery(query);
+            String q = "SELECT MAX(" + kriteria + ") AS max_kriteria FROM alternatif";
+            ResultSet rs = st.executeQuery(q);
             while (rs.next()) {
-                max = rs.getDouble("max_kolom");
+                max = rs.getDouble("max_kriteria");
             }
             return max;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
         }
         return max;
     }
 
-    private String label(String kolom) {
+    private String label(String kriteria) {
         String label = "cost";
         try {
             Connection c = Koneksi.konekKeDB();
             Statement st = c.createStatement();
-            String query = "SELECT label FROM kriteria WHERE nama='" + kolom + "'";
-            ResultSet rs = st.executeQuery(query);
+            String q = "SELECT label FROM kriteria WHERE kriteria='" + kriteria + "'";
+            ResultSet rs = st.executeQuery(q);
             while (rs.next()) {
                 label = rs.getString("label");
             }
             return label;
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
         }
+
         return label;
     }
-
-    private double bobot(String kolom) {
+    
+    private double bobot(String kriteria) {
         double bobot = 0;
         try {
             Connection c = Koneksi.konekKeDB();
             Statement st = c.createStatement();
-            String query = "SELECT bobot FROM kriteria WHERE nama='" + kolom + "'";
-            ResultSet rs = st.executeQuery(query);
+            String q = "SELECT bobot FROM kriteria WHERE kriteria='" + kriteria + "'";
+            ResultSet rs = st.executeQuery(q);
             while (rs.next()) {
                 bobot = rs.getDouble("bobot");
             }
             return bobot;
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
         }
+
         return bobot;
     }
-
-    //Methods for WP    
-    private List getVectorS() {
-        List<Double> vectorS = new ArrayList<>();
-                
-        try {
-            try (Connection c = Koneksi.konekKeDB()) {
-                Statement st = c.createStatement();
-                String query = "SELECT * FROM alternatif";
-                ResultSet rs = st.executeQuery(query);
-                while (rs.next()) {
-                    double harga = rs.getDouble("harga");
-                    double kadaluarsa = rs.getDouble("kadaluarsa");
-                    double penggunaan = rs.getDouble("penggunaan");
-                    double efekSamping = rs.getDouble("efekSamping");
-                    double bentuk = rs.getDouble("bentuk");
-                    
-                    double pemangkat_harga = label2("harga").equals("benefit") ? bobot2("harga") : -1 * bobot2("harga");
-                    double pemangkat_kadaluarsa = label2("kadaluarsa").equals("benefit") ? bobot2("kadaluarsa") : -1 * bobot2("kadaluarsa");
-                    double pemangkat_penggunaan = label2("penggunaan").equals("benefit") ? bobot2("penggunaan") : -1 * bobot2("penggunaan");
-                    double pemangkat_efekSamping = label2("efekSamping").equals("benefit") ? bobot2("efekSamping") : -1 * bobot2("efekSamping");
-                    double pemangkat_bentuk = label2("bentuk").equals("benefit") ? bobot2("bentuk") : -1 * bobot2("bentuk");
-                    
-                    
-                    double vector_S =
-                            Math.pow(harga, pemangkat_harga)*
-                            Math.pow(kadaluarsa, pemangkat_kadaluarsa) *
-                            Math.pow(penggunaan, pemangkat_penggunaan) *
-                            Math.pow(efekSamping, pemangkat_efekSamping) *
-                            Math.pow(bentuk, pemangkat_bentuk);
-                    vectorS.add(vector_S);
-                }
-            }
-            return vectorS;
-        } catch (SQLException e) {
-        }
-        return vectorS;
-    }
-    
-    public static double getSum(List<Double> nums) {
-        double sum = 0;
-        for (double i: nums) {
-            sum += i;
-        }
-        return sum;
-    }
-    
-    
-    
-    private void SPK_WP() {        
-        
-        try {
-            //List<Double> hasil_saw = new ArrayList<>();
-            Object[] header = {"NO", "ALTERNATIF", "BOBOT"};
-            Object[][] data = null;
-            DefaultTableModel model = new DefaultTableModel(data, header);
-            hasilPembobotan.setModel(model);
-            int nomor = 0;
-
-            try (Connection c = Koneksi.konekKeDB()) {
-                Statement st = c.createStatement();
-                String query = "SELECT * FROM alternatif";
-                ResultSet rs = st.executeQuery(query);
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String nama = rs.getString("nama");
-                    double totalVectorS = getSum(getVectorS());
-                    double V = Double.parseDouble(""+getVectorS().get(nomor)) / totalVectorS;
-                    nomor++;
-                    Object[] dataV = {id,nama,V};
-                    model.addRow(dataV);
-                }
-                //double max = Collections.max(hasil_saw);
-                //System.out.println(max);
-            }
-        } catch (NumberFormatException | SQLException e) {
+        private void UpdateData() {
+        if(IDAlternatif > 0){
+            UpdateAlternatif updateAlternatif = new UpdateAlternatif(this, true);
+            updateAlternatif.alt = alternatif;
+            updateAlternatif.setVisible(true); 
         }
     }
-
-    private String label2(String kolom) {
-        String label = "cost";
-        try {
-            try (Connection c = Koneksi.konekKeDB()) {
-                Statement st = c.createStatement();
-                String query = "SELECT label FROM kriteria_wp WHERE nama='" + kolom + "'";
-                ResultSet rs = st.executeQuery(query);
-                while (rs.next()) {
-                    label = rs.getString("label");
-                }
-            }
-            return label;
-
-        } catch (SQLException e) {
-        }
-        return label;
-    }
-
-    private double bobot2(String kolom) {
-        double bobot = 0;
-        try {
-            try (Connection c = Koneksi.konekKeDB()) {
-                Statement st = c.createStatement();
-                String query = "SELECT bobot FROM kriteria_wp WHERE nama='" + kolom + "'";
-                ResultSet rs = st.executeQuery(query);
-                while (rs.next()) {
-                    bobot = rs.getDouble("bobot");
-                }
-            }
-            return bobot;
-
-        } catch (SQLException e) {
-        }
-        return bobot;
-    }
-
 }

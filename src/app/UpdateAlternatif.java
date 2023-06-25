@@ -9,14 +9,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-
+//import oop.Alternatif;
 /**
  *
  * @author dikadzikrii
  */
 public class UpdateAlternatif extends javax.swing.JDialog {
 
-    namaObat obat;
+    Alternatif alt;
     /**
      * Creates new form TambahKonsumen
      */
@@ -34,7 +34,6 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnUpdate = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         btnBatal = new javax.swing.JButton();
@@ -50,15 +49,8 @@ public class UpdateAlternatif extends javax.swing.JDialog {
         txtPenggunaan = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cmbEfekSamping = new javax.swing.JComboBox<>();
+        cmbefekSamping = new javax.swing.JComboBox<>();
         cmbBentuk = new javax.swing.JComboBox<>();
-
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Edit Konsumen");
@@ -107,7 +99,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
 
         jLabel12.setText("Bentuk");
 
-        cmbEfekSamping.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cmbefekSamping.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         cmbBentuk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
@@ -150,7 +142,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtPenggunaan, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                                        .addComponent(cmbEfekSamping, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbefekSamping, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cmbBentuk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
@@ -162,7 +154,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -185,12 +177,12 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbEfekSamping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbefekSamping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbBentuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66)
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBatal)
                     .addComponent(btnUpdt))
@@ -201,23 +193,18 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtID.setText(obat.getId()); 
-        txtAlternatif.setText(obat.getAlternatif()); 
-        txtHarga.setText(obat.getHarga()); 
-        txtKadaluarsa.setText(obat.getKadaluarsa());
-        txtPenggunaan.setText(obat.getPenggunaan());
-        cmbEfekSamping.setText(obat.getEfekSamping());
-        cmbBentuk.setText(obat.getBentuk());
+        txtID.setText(alt.getId()); 
+        txtAlternatif.setText(alt.getAlternatifs()); 
+        txtHarga.setText(alt.getHarga()); 
+        txtKadaluarsa.setText(alt.getKadaluarsa());
+        txtPenggunaan.setText(alt.getPenggunaan());
+        cmbefekSamping.setSelectedItem(alt.getefekSamping());
+        cmbBentuk.setSelectedItem(alt.getBentuk());
     }//GEN-LAST:event_formWindowOpened
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        EditDataAlternatif();
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnUpdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdtActionPerformed
         // TODO add your handling code here:
-        EditDataAlternatif();
+        UpdateAlternatif();
     }//GEN-LAST:event_btnUpdtActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
@@ -280,10 +267,9 @@ public class UpdateAlternatif extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdt;
     private javax.swing.JComboBox<String> cmbBentuk;
-    private javax.swing.JComboBox<String> cmbEfekSamping;
+    private javax.swing.JComboBox<String> cmbefekSamping;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -298,13 +284,13 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     private javax.swing.JTextField txtKadaluarsa;
     private javax.swing.JTextField txtPenggunaan;
     // End of variables declaration//GEN-END:variables
-    private void EditDataAlternatif() {
+    private void UpdateAlternatif() {
         try {
             String alternatif = txtAlternatif.getText();
-            String harga = txtAlternatif.getText();
+            String harga = txtHarga.getText();
             String kadaluarsa = txtKadaluarsa.getText();
             String penggunaan = txtPenggunaan.getText();
-            String efekSamping = (String) cmbEfekSamping.getSelectedItem();
+            String efekSamping = (String) cmbefekSamping.getSelectedItem();
             String bentuk = (String) cmbBentuk.getSelectedItem();
             if(alternatif.isEmpty() || harga.isEmpty() || kadaluarsa.isEmpty() || penggunaan.isEmpty() || efekSamping.isEmpty() || bentuk.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Lengkapi Data!"); 
@@ -316,8 +302,8 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                         + "kadaluarsa='"+kadaluarsa+"',"
                         + "penggunaan='"+penggunaan+"',"
                         + "efekSamping='"+efekSamping+"',"
-                        + "bentuk='"+bentuk
-                        + "WHERE id='"+obat.getId()+"'";
+                        + "bentuk='"+bentuk+"',"
+                        + "WHERE id='"+alt.getId()+"'";
 //                System.out.println(sql);
                 
                 Connection c = Koneksi.konekKeDB();

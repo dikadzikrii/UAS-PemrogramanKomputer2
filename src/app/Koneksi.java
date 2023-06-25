@@ -7,7 +7,6 @@ package app;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,10 +24,15 @@ public class Koneksi {
             mds.setPortNumber(3306);
             mds.setServerTimezone("Asia/Jakarta");
             Connection koneksi = mds.getConnection();
+//            System.out.println("OK");
             return koneksi;
         } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, e.getMessage());
+//            System.err.println("Can't connect: "+e.getMessage());
+//            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return null;
     }
+    
+   
+    
 }
