@@ -37,7 +37,6 @@ public class UpdateAlternatif extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         btnBatal = new javax.swing.JButton();
-        btnUpdt = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtAlternatif = new javax.swing.JTextField();
@@ -51,6 +50,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         cmbefekSamping = new javax.swing.JComboBox<>();
         cmbBentuk = new javax.swing.JComboBox<>();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Edit Konsumen");
@@ -68,13 +68,6 @@ public class UpdateAlternatif extends javax.swing.JDialog {
         btnBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBatalActionPerformed(evt);
-            }
-        });
-
-        btnUpdt.setText("Update");
-        btnUpdt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdtActionPerformed(evt);
             }
         });
 
@@ -103,6 +96,13 @@ public class UpdateAlternatif extends javax.swing.JDialog {
 
         cmbBentuk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,9 +113,9 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(207, 207, 207)
-                                .addComponent(btnUpdt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(198, 198, 198)
+                                .addComponent(btnUpdate)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnBatal))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
@@ -185,7 +185,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBatal)
-                    .addComponent(btnUpdt))
+                    .addComponent(btnUpdate))
                 .addGap(12, 12, 12))
         );
 
@@ -194,18 +194,13 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         txtID.setText(alt.getId()); 
-        txtAlternatif.setText(alt.getAlternatifs()); 
+        txtAlternatif.setText(alt.getAlternatif()); 
         txtHarga.setText(alt.getHarga()); 
         txtKadaluarsa.setText(alt.getKadaluarsa());
         txtPenggunaan.setText(alt.getPenggunaan());
         cmbefekSamping.setSelectedItem(alt.getefekSamping());
         cmbBentuk.setSelectedItem(alt.getBentuk());
     }//GEN-LAST:event_formWindowOpened
-
-    private void btnUpdtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdtActionPerformed
-        // TODO add your handling code here:
-        UpdateAlternatif();
-    }//GEN-LAST:event_btnUpdtActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
@@ -215,6 +210,11 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     private void txtKadaluarsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKadaluarsaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKadaluarsaActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        EditData();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,7 +267,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnUpdt;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbBentuk;
     private javax.swing.JComboBox<String> cmbefekSamping;
     private javax.swing.JLabel jLabel1;
@@ -284,7 +284,7 @@ public class UpdateAlternatif extends javax.swing.JDialog {
     private javax.swing.JTextField txtKadaluarsa;
     private javax.swing.JTextField txtPenggunaan;
     // End of variables declaration//GEN-END:variables
-    private void UpdateAlternatif() {
+    private void EditData() {
         try {
             String alternatif = txtAlternatif.getText();
             String harga = txtHarga.getText();
@@ -302,9 +302,9 @@ public class UpdateAlternatif extends javax.swing.JDialog {
                         + "kadaluarsa='"+kadaluarsa+"',"
                         + "penggunaan='"+penggunaan+"',"
                         + "efekSamping='"+efekSamping+"',"
-                        + "bentuk='"+bentuk+"',"
+                        + "bentuk='"+bentuk+"' "
                         + "WHERE id='"+alt.getId()+"'";
-//                System.out.println(sql);
+//                System.out.printlnd(sql);
                 
                 Connection c = Koneksi.konekKeDB();
                 Statement st = c.createStatement();

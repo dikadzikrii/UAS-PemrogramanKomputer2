@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class UpdateKriteria extends javax.swing.JDialog {
 
-    obats obat;
+    Alternatif alt;
     /**
      * Creates new form TambahKonsumen
      */
@@ -202,13 +202,13 @@ public class UpdateKriteria extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        txtID.setText(obat.getId()); 
-        txtAlternatif.setText(obat.getAlternatif()); 
-        txtHarga.setText(obat.getHarga()); 
-        txtKadaluarsa.setText(obat.getKadaluarsa());
-        txtPenggunaan.setText(obat.getPenggunaan());
-        cmbEfekSamping.setText(obat.getEfekSamping());
-        cmbBentuk.setText(obat.getBentuk());
+        txtID.setText(alt.getId()); 
+        txtAlternatif.setText(alt.getAlternatif()); 
+        txtHarga.setText(alt.getHarga()); 
+        txtKadaluarsa.setText(alt.getKadaluarsa());
+        txtPenggunaan.setText(alt.getPenggunaan());
+        cmbEfekSamping.setSelectedItem(alt.getefekSamping());
+        cmbBentuk.setSelectedItem(alt.getBentuk());
     }//GEN-LAST:event_formWindowOpened
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -319,14 +319,14 @@ public class UpdateKriteria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Lengkapi Data!"); 
             }else {
                 //siapkan query
-                String sql = "UPDATE alternatif SET "
+                String sql = "UPDATE kriteria SET "
                         + "alternatif='"+alternatif+"',"
                         + "harga='"+harga+"',"
                         + "kadaluarsa='"+kadaluarsa+"',"
                         + "penggunaan='"+penggunaan+"',"
                         + "efekSamping='"+efekSamping+"',"
                         + "bentuk='"+bentuk
-                        + "WHERE id='"+obat.getId()+"'";
+                        + "WHERE id='"+alt.getId()+"'";
 //                System.out.println(sql);
                 
                 Connection c = Koneksi.konekKeDB();

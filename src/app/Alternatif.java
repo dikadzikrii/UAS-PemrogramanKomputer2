@@ -25,12 +25,12 @@ public class Alternatif {
         this.id = id;
     }
 
-    public String getAlternatifs() {
+    public String getAlternatif() {
         return alternatifs;
     }
 
-    public void setAlternatifs(String alternatifs) {
-        this.alternatifs = alternatifs;
+    public void setAlternatif(String alternatif) {
+        this.alternatifs = alternatif;
     }
 
     public String getHarga() {
@@ -72,6 +72,4 @@ public class Alternatif {
     public void setBentuk(String bentuk) {
         this.bentuk = bentuk;
     }
-    
-    
 }
